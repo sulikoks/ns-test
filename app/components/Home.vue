@@ -1,40 +1,47 @@
 <template>
     <Page>
-        <ActionBar>
-            <Label text="Home"/>
-        </ActionBar>
+      <ActionBar title="My App"></ActionBar>
 
-        <GridLayout>
-            <Label class="info">
-                <FormattedString>
-                    <Span class="fas" text.decode="&#xf135; "/>
-                    <Span :text="message"/>
-                </FormattedString>
-            </Label>
-        </GridLayout>
+        <StackLayout>
+          <ActivityIndicator class="loader" busy="true" @busyChange="busy = false" />
+          <Button text="Home" @tap="$navigateTo(this)" />
+          <Button text="Elements" @tap="$navigateTo(ElementsUI)" />
+        </StackLayout>
     </Page>
 </template>
 
 <script>
-  export default {
-    computed: {
-      message() {
-        return "Blank {N}-Vue app";
-      }
+import ElementsUI from "~/pages/ElementsUI";
+
+export default {
+  data() {
+    return {
+      ElementsUI,
+      busy: false,
+      isEditing: false,
     }
-  };
+  },
+  computed: {
+    message() {
+      return "Blank {N}-Vue app";
+    }
+  }
+};
 </script>
 
 <style scoped lang="scss">
     @import '~@nativescript/theme/scss/variables/blue';
+    $accent: #0f9;
 
-    // Custom styles
-    .fas {
-        @include colorize($color: accent);
+    .loader {
+      vertical-align: top;
+      horizontal-align: center;
+      color: $accent;
+      background: transparent;
     }
 
     .info {
-        font-size: 20;
+        font-size: 30px;
         horizontal-align: center;
         vertical-align: center;
     }
